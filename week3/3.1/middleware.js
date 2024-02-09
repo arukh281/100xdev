@@ -1,6 +1,10 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
+
+// app.use(middleware)/
+// middle ware is ia function that will be called whenever app is used
 
 app.get("/health-checkup",(req,res)=>{
     //do health check up here
