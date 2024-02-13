@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //first way
+        //function getanimaldata(){
+            //alert("hi there")
+            // this will send a GET request
+            //const response = fetch("https://fakerapi.it/api/v1/persons");
+            //console.log(response);
+
+            //fetch("https://fakerapi.it/api/v1/persons")
+                //.then(function(response){
+                    //response.json()
+                        //.then(function(finaldata){
+                        //console.log(finaldata)
+                //})
+            //})
+        //}
+
+        //second way
+        async function getanimaldata(){
+            const response = await fetch("https://fakerapi.it/api/v1/persons");
+            const finaldata = await response.json();
+            console.log(finaldata);
+        }
+
+
+        getanimaldata();
+    </script>
+    <!-- <button onclick="getanimaldata()">get animal data</button> -->
+    <!-- when-ever the page is loaded the GET request is sent -->
+</body>
+</html>
