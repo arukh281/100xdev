@@ -9,13 +9,30 @@ const app = express();
 // should block them with a 404.
 // User will be sending in their user id in the header as 'user-id'
 // You have been given a numberOfRequestsForUser object to start off with which
-// clears every one second
+// clears every one second/
+
+
 
 let numberOfRequestsForUser = {};
 setInterval(() => {
-    numberOfRequestsForUser = {};
+  numberOfRequestsForUser = {};
 }, 1000)
 
+app.use(function(req, res, next) {
+  const user_id = req.headers["user-id"];
+  
+  if (numberOfRequestsForUser[user_id]) {
+    numberOfRequestsForUser[user_id]++;
+    if (numberOfRequestsForUser[user_id] > 5) {
+      res.status(404).json({ msg: "Rate limit exceeded" });
+    } else {
+      next();
+    }
+  } else {
+    numberOfRequestsForUser[user_id] = 1;
+    next();
+  }
+});
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
@@ -23,5 +40,7 @@ app.get('/user', function(req, res) {
 app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+
+// app.listen(3000);
 
 module.exports = app;

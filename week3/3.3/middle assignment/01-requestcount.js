@@ -1,5 +1,5 @@
-// const request = require('supertest');
-// const assert = require('assert');
+const request = require('supertest');
+const assert = require('assert');
 const express = require('express');
 
 const app = express();
@@ -30,6 +30,6 @@ app.get('/requestCount', function(req, res) {
   res.status(200).json({ requestCount });
 })
 
-app.listen(3000); 
+// app.listen(3000); 
 
-// module.exports = app;
+module.exports = app;
