@@ -11,29 +11,29 @@ app.use(express.json());
 //     }
 // }
 
-function isOld_middleware(req, res, next){
-    const age = parseInt(req.query.age);
-    if (age<=14){
-        next();
-    }else{
-        res.json({
-            msg:"sorry you are not of age yet"
-        })
-    }
+function isOld_middleware(req, res, next) {
+  const age = parseInt(req.query.age);
+  if (age <= 14) {
+    next();
+  } else {
+    res.json({
+      msg: "sorry you are not of age yet",
+    });
+  }
 }
 
 app.use(isOld_middleware);
 
-app.get("/ride1",function(req,res){
-    res.json({
-        msg:"you have succfully riden ride 1"
-    });
+app.get("/ride1", function (req, res) {
+  res.json({
+    msg: "you have succfully riden ride 1",
+  });
 });
 
-app.get("/ride2",function(req,res){
-    res.json({
-        msg:"you have succfully riden ride 2"
-    });
+app.get("/ride2", function (req, res) {
+  res.json({
+    msg: "you have succfully riden ride 2",
+  });
 });
 
 // app.get("/ride2",function(req,res){
@@ -49,5 +49,5 @@ app.get("/ride2",function(req,res){
 // });
 
 app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+  console.log("Server is running on port 3000");
 });

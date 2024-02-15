@@ -1,6 +1,6 @@
 // given an inout array, give me back all the even vales from it.
 
-const arr =[1,2,3,4,5];
+const arr = [1, 2, 3, 4, 5];
 
 // const newarray=[];
 
@@ -14,12 +14,12 @@ const arr =[1,2,3,4,5];
 
 //*******************another solution ***************8
 
-function filteringlogic(n){
-    if(n%2==0){
-        return true;
-    } else{
-        return false;
-    }
+function filteringlogic(n) {
+  if (n % 2 == 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const ans = arr.filter(filteringlogic);

@@ -6,45 +6,48 @@ const app = express();
 app.use(express.json());
 
 const ALLUSERS = [
-    {
-        username : "prince@gmail.com",
-        password : "4567",
-        name : "harkirat"
-    },
-    {
-        username : "aru@gmail.com",
-        password : "5678",
-        name : "aradhya"
-    },
-    {
-        username : "xyz@gmail.com",
-        password : "7777",
-        name : "xyz"
-    }
+  {
+    username: "prince@gmail.com",
+    password: "4567",
+    name: "harkirat",
+  },
+  {
+    username: "aru@gmail.com",
+    password: "5678",
+    name: "aradhya",
+  },
+  {
+    username: "xyz@gmail.com",
+    password: "7777",
+    name: "xyz",
+  },
 ];
 
-app.post("/signin", (req,res)=>{
-    const username = req.body.username;
-    const password = req.body.password;
+app.post("/signin", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-    if(!userexist(username,password)){
-        return res.status(403).json({
-            msg:"user does not exist"
-        });
-    }
-    var token = jwt.sign({username:username}, jwtpassword);
-    return res.json({
-        token,
+  if (!userexist(username, password)) {
+    return res.status(403).json({
+      msg: "user does not exist",
     });
+  }
+  var token = jwt.sign({ username: username }, jwtpassword);
+  return res.json({
+    token,
+  });
 });
 
-function userexist(username,password){
-    for(let i = 0; i < ALLUSERS.length; i++){
-        if(username === ALLUSERS[i].username && password === ALLUSERS[i].password){
-            return true;
-        }
+function userexist(username, password) {
+  for (let i = 0; i < ALLUSERS.length; i++) {
+    if (
+      username === ALLUSERS[i].username &&
+      password === ALLUSERS[i].password
+    ) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 // app.get("/users", function(req,res){
@@ -61,36 +64,35 @@ function userexist(username,password){
 //     }
 // });
 
-app.get("/users", function(req,res){
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.status(403).json({
-            msg: "Token not provided",
-        });
-    }
-    try{
-        const decoded = jwt.verify(token.split(' ')[1], jwtpassword);
-        const decoded_username = decoded.username;
-        const users = print_users(decoded_username);
-        return res.json(users);
-    } catch(err){
-        return res.status(403).json({
-            msg: "Invalid token",
-        });
-    }
+app.get("/users", function (req, res) {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(403).json({
+      msg: "Token not provided",
+    });
+  }
+  try {
+    const decoded = jwt.verify(token.split(" ")[1], jwtpassword);
+    const decoded_username = decoded.username;
+    const users = print_users(decoded_username);
+    return res.json(users);
+  } catch (err) {
+    return res.status(403).json({
+      msg: "Invalid token",
+    });
+  }
 });
 
-
-function print_users(username){
-    const users = [];
-    for(let i = 0; i < ALLUSERS.length; i++){
-        if(username !== ALLUSERS[i].username){
-            users.push(ALLUSERS[i]);
-        }
+function print_users(username) {
+  const users = [];
+  for (let i = 0; i < ALLUSERS.length; i++) {
+    if (username !== ALLUSERS[i].username) {
+      users.push(ALLUSERS[i]);
     }
-    return users;
+  }
+  return users;
 }
 
 app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+  console.log("Server is running on port 3000");
 });

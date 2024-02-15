@@ -5,20 +5,20 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-app.post("/health-checkup",function(req,res){
-    // kidney =[1,2]
-    const kidney = req.body.kidney;
-    const kidneylenght = kidney.length;
+app.post("/health-checkup", function (req, res) {
+  // kidney =[1,2]
+  const kidney = req.body.kidney;
+  const kidneylenght = kidney.length;
 
-    res.send("you have" + kidneylenght + "kidney")
+  res.send("you have" + kidneylenght + "kidney");
 });
 
 // gives a baeutifies error handling.
-app.use(function(err,req,res,next){
-    errorcount ++;
-    res.json({
-        msg:"sorry something is up with our server"
-    })
-})
+app.use(function (err, req, res, next) {
+  errorcount++;
+  res.json({
+    msg: "sorry something is up with our server",
+  });
+});
 
 app.listen(3000);

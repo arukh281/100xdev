@@ -2,7 +2,7 @@
 //[1,2,3,4,5]
 //[2,4,6,8,10]
 
-const input = [1,2,3,4,5];
+const input = [1, 2, 3, 4, 5];
 
 // const newarray =[];
 
@@ -10,14 +10,13 @@ const input = [1,2,3,4,5];
 //     newarray.push(input[i]*2);
 // }
 
-// console.log(newarray); 
+// console.log(newarray);
 
 // *************other solution*******************
 
-function transform(i){
-    return i*n;
+function transform(i) {
+  return i * n;
 }
 
 const ans = input.map(transform(3));
 console.log(ans);
-
