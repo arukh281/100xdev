@@ -1,5 +1,7 @@
-a programming interface for web documents
-dom is not a programming language
+A programming interface for web documents
+DOM is not a programming language
 represents the page so that programs can change the document structre, style and content
 
 https://app.100xdevs.com/courses/3/23/159#600bd00b33284be8aaa65ab61f9d255a
+
+extensively covered in week4

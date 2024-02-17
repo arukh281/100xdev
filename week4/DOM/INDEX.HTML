@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    //    function calculateSum() {
+    //        const a = parseInt(document.getElementById("firstNumber").value);
+    //        const b = parseInt(document.getElementById("secondNumber").value);
+    //
+    //        fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+    //            .then(function (response) {
+    //                response.text()
+    //                    .then(function (ans) {
+    //                        console.log(ans);
+    //                        document.getElementById("finalSum").innerHTML = ans;
+    //                    })
+    //            });
+    //    }
+
+    async function calculateSum() {
+        const a = parseInt(document.getElementById("firstNumber").value);
+        const b = parseInt(document.getElementById("secondNumber").value);
+        const response = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+        const ans = await response.text();
+        document.getElementById("finalSum").innerHTML = ans;
+    }
+</script>
+
+<body>
+    <input type="text" id="firstNumber" placeholder="first number"><br><br>
+    <input type="text" id="secondNumber" placeholder="second place"><br><br>
+    <button onclick="calculateSum()">calculate sum</button><br><br>
+    <div id="finalSum"></div>
+</body>
+
+</html>
