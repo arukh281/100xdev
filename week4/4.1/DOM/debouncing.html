@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- if any field changes it should send a a request -->
+<script>
+    let timeout;
+    function debouncecalcaltesum() {
+        // delay the call for calculate sum, if not called for 100ms
+        // how do you cancle the clock [clearclock]
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            calculateSum();
+        }, 1000);
+    }
+    async function calculateSum() {
+        const a = parseInt(document.getElementById("firstNumber").value);
+        const b = parseInt(document.getElementById("secondNumber").value);
+        const response = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+        const ans = await response.text();
+        document.getElementById("finalSum").innerHTML = ans;
+    }
+</script>
+
+<body>
+    <input oninput="debouncecalcaltesum()" type="text" id="firstNumber" placeholder="first number"><br><br>
+    <input oninput="debouncecalcaltesum()" type="text" id="secondNumber" placeholder="second place"><br><br>
+    <!-- <button onclick="calculateSum()">calculate sum</button><br><br> -->
+    <div id="finalSum"></div>
+</body>
+
+</html>
