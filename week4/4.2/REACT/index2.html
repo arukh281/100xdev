@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        .todo-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="title" type="text" placeholder="Title">
+        <br><br>
+        <input id="description" type="text" placeholder="Description">
+        <br><br>
+        <button onclick="addtodo()">Add Todo</button>
+        <div id="container"></div>
+    </div>
+
+    <script>
+        let globalid = 0;
+
+        function addtodo() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const parent = document.getElementById("container");
+            parent.appendChild(createchild(title, description, globalid++));
+        }
+
+        function createchild(title, description, id) {
+            const child = document.createElement("div");
+            child.className = "todo-item";
+
+            const firstgrandparent = document.createElement("div");
+            firstgrandparent.innerHTML = title;
+
+            const secondgrandparent = document.createElement("div");
+            secondgrandparent.innerHTML = description;
+
+            const thirdgrandparent = document.createElement("button");
+            thirdgrandparent.innerHTML = "Mark as Done";
+            thirdgrandparent.setAttribute("onclick", `markasdone(${id})`);
+
+            child.appendChild(firstgrandparent);
+            child.appendChild(secondgrandparent);
+            child.appendChild(thirdgrandparent);
+            child.setAttribute("id", id);
+
+            return child;
+        }
+
+        function UpdateDomAccToState(state) {
+            const parent = document.getElementById("container");
+            parent.innerHTML = "";
+            for (let i = 0; i < state.length; i++) {
+                const child = createchild(state[i].title, state[i].description, state[i].id);
+                parent.appendChild(child);
+            }
+        }
+
+        async function fetchTodos() {
+            try {
+                const res = await fetch("https://sum-server.100xdevs.com/todos");
+                const json = await res.json();
+                UpdateDomAccToState(json.todos);
+            } catch (error) {
+                console.error("Error fetching todos:", error);
+            }
+        }
+
+        function markasdone(id) {
+            const todoItem = document.getElementById(id);
+            if (todoItem) {
+                todoItem.style.textDecoration = "line-through";
+            }
+        }
+
+        window.setInterval(fetchTodos, 1000);
+    </script>
+</body>
+
+</html>
